@@ -11,12 +11,13 @@ const client = new Client()
 const database = new Databases(client);
 
 export const updateSearchCount = async (searchTerm, movie) => {
-  if (!searchTerm) return; // تجاهل إذا كان فارغًا
+  if (!searchTerm || typeof searchTerm !== 'string' || searchTerm.trim() === '') return; // تحقق أقوى
 
   try {
     const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
-      Query.equal('searchTerm', searchTerm),
+      Query.equal('searchTerm', searchTerm.trim()),
     ]);
+    
     
 
     // تحقق أن النتيجة موجودة وأن documents مصفوفة
