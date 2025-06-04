@@ -8,13 +8,11 @@ import {getTrendingMovies, updateSearchCount } from './appwrite.js'
 
 const TMDB_API_URL = 'https://api.themoviedb.org/3';
 
-const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-
 const API_OPTIONS = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization:`Bearer ${API_KEY}`
+    Authorization:`Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NzAyYzIyNWY2NzYxOWVmODA1NTRjZjhjZjEwYTE0ZCIsIm5iZiI6MTc0ODgwMjM0Mi40LCJzdWIiOiI2ODNjOWIyNjM1MWI3NmYxNmVkMjE0YmUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.4CFuez7mCQ2AAQ6YTeWcZ0JccJKEX2wjCw78kXO7n_E`
   }
 }
 
