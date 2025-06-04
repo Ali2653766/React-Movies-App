@@ -4,6 +4,10 @@ const PROJECT_ID = import.meta.env.VITE_APPWRITE_PROJECT_ID;
 const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
 const COLLECTION_ID = import.meta.env.VITE_COLLECTION_ID;
 
+console.log('PROJECT_ID:', PROJECT_ID);
+console.log('DATABASE_ID:', DATABASE_ID);
+console.log('COLLECTION_ID:', COLLECTION_ID);
+
 const client = new Client()
   .setEndpoint('https://fra.cloud.appwrite.io/v1')
   .setProject(PROJECT_ID)
@@ -11,12 +15,14 @@ const client = new Client()
 const database = new Databases(client);
 
 export const updateSearchCount = async (searchTerm, movie) => {
-  if (!searchTerm || typeof searchTerm !== 'string' || searchTerm.trim() === '') return; // تحقق أقوى
+  const trimmedSearchTerm = typeof searchTerm === 'string' ? searchTerm.trim() : '';
+  if (!trimmedSearchTerm) return; // تجاهل إذا كان فارغًا بعد التريم
 
   try {
     const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
-      Query.equal('searchTerm', searchTerm.trim()),
+      Query.equal('searchTerm', trimmedSearchTerm),
     ]);
+    
     
     
 
