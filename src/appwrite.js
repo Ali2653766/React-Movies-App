@@ -1,8 +1,8 @@
 import { Client, Databases, ID, Query } from 'appwrite'
 
-const PROJECT_ID = '683f42f4002306a920bc';
-const DATABASE_ID = '683f45bb0008c1cf0128';
-const COLLECTION_ID = '683f45f000050f2c3f9e';
+const PROJECT_ID = import.meta.env.VITE_APPWRITE_PROJECT_ID;
+const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
+const COLLECTION_ID = import.meta.env.VITE_COLLECTION_ID;
 
 const client = new Client()
   .setEndpoint('https://fra.cloud.appwrite.io/v1')
@@ -11,10 +11,13 @@ const client = new Client()
 const database = new Databases(client);
 
 export const updateSearchCount = async (searchTerm, movie) => {
+  if (!searchTerm) return; // تجاهل إذا كان فارغًا
+
   try {
     const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
       Query.equal('searchTerm', searchTerm),
     ]);
+    
 
     // تحقق أن النتيجة موجودة وأن documents مصفوفة
     if (result && Array.isArray(result.documents) && result.documents.length > 0) {
